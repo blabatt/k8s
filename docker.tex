@@ -1,0 +1,48 @@
+\section{Docker}
+{\footnotesize \textit{Images are identified by their tag, which generally looks like: <ns>/<version>. For \href{https://console.cloud.google.com/artifacts?authuser=1&project=vesta-main-20181113}{gcloud}:}}\\[-2mm]
+\begin{lstlisting}
+us-central1-docker.pkg.dev/
+<prjID>/<repoID>/<img>:<tag>
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://docs.docker.com/engine/reference/commandline/cli/}{CLI}}
+\entry{40mm}{docker run <tag>}{local execution}\\
+\entry{40mm}{docker build -t <name> .}{from Dockerfile}\\
+\entry{40mm}{docker images}{local imgs}\\
+\entry{40mm}{docker ps}{running cntrs}\\
+\entry{40mm}{docker inspect <cntr>}{detailed info}\\
+\entry{40mm}{docker exec -it <cntr> bash}{bash in}\\
+\entry{40mm}{docker stop <cntr>}{stop execut'n}\\
+\entry{40mm}{docker rm <cntr>}{fully remove}\\
+\entry{40mm}{docker tag <img> <tag>}{identify}\\
+%\entry{40mm}{docker pull}{}\\
+\entry{40mm}{docker push <tag>}{upload to repo}\\
+\entry{40mm}{docker login}{login to repo}\\
+\entry{40mm}{docker commit}{cntr $\to$ cntr}\\
+\entry{40mm}{docker logs}{}\\
+%\entry{40mm}{docker kill}{}\\
+%\entry{40mm}{docker rmi}{}\\
+%\entry{40mm}{docker network <sub>}{}\\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://docs.docker.com/engine/reference/builder/}{Dockerfile}}
+\entry{30mm}{FROM ubuntu:18.04}{initial image}\\
+\entry{30mm}{COPY . /app}{move files in/out}\\
+\entry{30mm}{RUN make /app}{configure}\\
+\entry{40mm}{CMD python /app/app.py}{main command}\\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Repositories}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{}
+
+

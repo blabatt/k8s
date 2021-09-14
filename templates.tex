@@ -1,0 +1,77 @@
+\section{Templating}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://helm.sh/docs/helm/helm/}{Helm}}
+
+{\footnotesize \textit{Template-based package mgr for k8s. ``Charts'' are stored in a ``repository.'' Eg, \href{https://artifacthub.io/}{ArtifactHub}, a public analog to DockerHub. $\exists$ private repos tools as well, such as \href{https://chartmuseum.com/}{ChartMuseum}. Upon {\tt helm install}, templates are resolved into k8s manifests \& sent to the API server. CLI sub-cmds:}}\\[-2mm]
+\api
+{1.5cm}{
+completion      \\
+get             \\
+package         \\
+rollback        \\
+template        \\
+verify
+
+
+}
+{1.5cm}{
+create          \\
+history         \\
+plugin          \\
+search          \\
+test            \\
+version
+
+}
+{1.5cm}{
+dependency      \\
+install         \\
+pull            \\
+show            \\
+uninstall       
+
+}
+{1.5cm}{
+env             \\
+lint            \\
+repo            \\
+status          \\
+upgrade         
+
+}
+\stopapi
+
+\begin{comment}
+\entry{35mm}{helm completion}{}\\
+\entry{35mm}{helm create}{}\\
+\entry{35mm}{helm dependency}{}\\
+\entry{35mm}{helm env}{}\\
+\entry{35mm}{helm get}{}\\
+\entry{35mm}{helm history}{}\\
+\entry{35mm}{helm install}{}\\
+\entry{35mm}{helm lint}{}\\
+\entry{35mm}{helm list}{}\\
+\entry{35mm}{helm package}{}\\
+\entry{35mm}{helm plugin}{}\\
+\entry{35mm}{helm pull}{}\\
+\entry{35mm}{helm repo}{}\\
+\entry{35mm}{helm rollback}{}\\
+\entry{35mm}{helm search}{}\\
+\entry{35mm}{helm show}{}\\
+\entry{35mm}{helm status}{}\\
+\entry{35mm}{helm template}{}\\
+\entry{35mm}{helm test}{}\\
+\entry{35mm}{helm uninstall}{}\\
+\entry{35mm}{helm upgrade}{}\\
+\entry{35mm}{helm verify}{}\\
+\entry{35mm}{helm version}{}\\
+%\entry{35mm}{helm }{}\\
+\end{comment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubectl.docs.kubernetes.io/references/kustomize/kustomization/}{Kustomize}}
+
+{\footnotesize \textit{Preferred by k8s developers (and \href{https://kubernetes.io/blog/2019/03/25/kubernetes-1-14-release-announcement/}{adopted} into {\tt kubectl}-proper) as a light-weight alternative to templates; kustomize is itself a k8s resource (per \href{https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/resource-management.md}{KRM}) that \href{https://github.com/kubernetes-sigs/kustomize}{layers k8s yaml $\Delta$s} as code into subdirectories near the original manifests. View prospective $\Delta$s with {\tt kustomize build} or apply them directly with {\tt kubectl apply -k}.}}\\

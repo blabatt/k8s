@@ -1,0 +1,169 @@
+\section{\href{https://kubernetes.io/docs/concepts/storage/}{Storage}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Volume}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.io/docs/concepts/storage/persistent-volumes/}{PersistentVolume}}
+
+
+\texttt{\href{https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/}{spec}}\quad\textit{(spec of PV)}\\[-2mm]
+\api
+{2.0cm}{
+accessModes     \\
+m'ntOptions     \\
+stor.ClassName  \\
+local           \\
+
+}
+{2.0cm}{
+capacity        \\
+nodeAffinity    \\
+volumeMode      \\
+
+}
+{2.0cm}{
+claimRef        \\
+P.V.ReclaimPol. \\
+hostPath        \\
+
+}
+\stopapi
+\\
+\textit{$\exists$ \href{https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/\#persistent-volumes}{many types of PVs}, eg {\tt \href{https://kubernetes.io/docs/concepts/storage/volumes\#gcepersistentdisk}{gcePersistentDisk}}.}
+
+\texttt{status}\quad\textit{(current status of volume)}\\[-2mm]
+\api
+{2.0cm}{
+message
+
+}
+{2.0cm}{
+phase
+
+}
+{2.0cm}{
+reason
+
+}
+\stopapi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.io/docs/concepts/storage/persistent-volumes/}{PersistentVolumeClaim}}
+
+
+
+\texttt{\href{https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/}{spec}}\quad\textit{()}\\[-2mm]
+\api
+{2.0cm}{
+accessModes     \\
+volumeName      \\
+dataSource
+
+}
+{2.0cm}{
+selector        \\
+stor.ClassName  \\
+dataSourceRef
+
+}
+{2.0cm}{
+resources       \\
+volumeMode      \\
+
+
+}
+\stopapi
+
+
+\texttt{status}\quad\textit{(current status, PVC)}\\[-2mm]
+\api
+{1.5cm}{
+accessModes     
+
+}
+{1.5cm}{
+capacity        
+
+}
+{1.5cm}{
+conditions      
+
+}
+{1.5cm}{
+phase
+
+}
+\stopapi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.io/docs/concepts/storage/storage-classes/}{StorageClass}}
+
+
+
+\texttt{[\href{https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/storage-class-v1/}{TopLevel}]}\quad\textit{(additional top-level fields)}\\[-2mm]
+\api
+{2.0cm}{
+provisioner     \\
+mountOptions    \\
+vol.BindingMode
+
+}
+{2.0cm}{
+allowVol.Expansion\\
+parameters      
+
+}
+{2.0cm}{
+all'dTopologies \\
+reclaimPolicy
+
+}
+\stopapi
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{}
+
+
+
+\begin{comment}
+
+\texttt{spec}\quad\textit{()}\\[-2mm]
+\api
+{2.0cm}{
+
+}
+{2.0cm}{
+
+}
+{2.0cm}{
+
+}
+\stopapi
+
+
+\texttt{status}\quad\textit{()}\\[-2mm]
+\api
+{2.0cm}{
+
+}
+{2.0cm}{
+
+}
+{2.0cm}{
+
+}
+\stopapi
+
+
+
+\end{comment}

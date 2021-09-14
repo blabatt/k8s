@@ -1,0 +1,151 @@
+\section{Kubernetes Internals}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{kubeadm}
+
+{\footnotesize \textit{To build your own k8s cluster, install node machines / OSes, with relevant network config and container runtimes, then run:}}\\
+\entry{30mm}{kubeadm init}{run on master node}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Controllers (\& k8s ``Control Plane'')}
+{\footnotesize \textit{These are a bevy of subscribers to API server, each listening for events of interest. They affect cluster $\Delta$s by writing back to API server. Egs:}}\\[-2mm]
+\api
+{2.0cm}{
+Replc'n Mgr     \\
+StatefulSet C.  \\
+Job C.          \\
+Namespace C.    
+
+}
+{2.0cm}{
+ReplicaSet C.   \\
+Node C.         \\
+Service C.      \\
+Persist.Vol. C. 
+
+}
+{2.0cm}{
+DaemonSet C.    \\
+Deployment C.   \\
+Endpoints C.    
+
+}
+\stopapi
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Scheduler}
+{\footnotesize \textit{Assigns pod $\to$ node by $\Delta$-ing pod definition thru API server, which then notifies {\tt kubelet} of the $\Delta$.}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{kubelet}
+{\footnotesize \textit{Monitors API server for pods assigned to the local node; then starts new pods' containers by invoking the cluster's configured container runtime (most often Docker).}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{kube-dns}
+{\footnotesize \textit{A pod that $\exists$ ($\in$ {\tt kube-system}) to resolve cluster service URLs to service IPs $\forall$ pods $\in$ the cluster. DNS inquiries are routed here by default; each \ul{each} pod's {\tt /etc/resolv.conf} file points to {\tt kube-dns}.}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{kube-proxy}
+\textit{Each node has a {\tt kube-proxy} that writes {\tt EndPoints} contents to its node's {\tt iptables} file.}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/resource-management.md}{API}}
+
+{\footnotesize \textit{API adheres to \href{https://en.wikipedia.org/wiki/Representational\_state\_transfer}{REST} principals, employing HTTP (or \href{https://developers.google.com/protocol-buffers}{protobufs}) to transfer data. REST's ``\href{https://martinfowler.com/articles/richardsonMaturityModel.html\#level1}{resources}'' map to k8s ``\href{https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/\#kubernetes-objects}{objects}'' (eg, pods, namespaces, etc) via its ``\href{https://stackoverflow.com/questions/52309496/difference-between-kubernetes-objects-and-resources}{resource}'' URL. {\tt kubectl} CLI wraps HTTP calls. Most/all resources have the following:}}\\
+\texttt{[top level]}\quad\textit{(top level fields)}\\[-2mm]
+\api
+{1.5cm}{
+apiVersion  
+}
+{1.0cm}{
+kind        
+}
+{1.3cm}{
+metadata
+}
+{1.0cm}{
+spec
+}
+{1.0cm}{
+status
+}
+\stopapi
+\\
+\texttt{[resource].metadata}\quad\textit{(generic, $\forall$ resource)}\\[-2mm]
+\api
+{2.0cm}{
+name        \\
+labels      \\
+manag'dFields\\
+del.Time'p  \\
+rs'ceVersion
+
+}
+{2.0cm}{
+generateName    \\
+annotations     \\
+ownerRef's      \\
+del.Gr'cPer.Sec's\\
+selfLink        
+
+}
+{2.0cm}{
+namespace   \\
+finalizers  \\
+creat'nTim'p\\
+generation  \\
+uid
+
+}
+\stopapi
+\\
+\texttt{[<rsrcetype>List]}\quad\textit{(collect'n, <rsrcetype>s)}\\[-2mm]
+\api
+{1.5cm}{
+apiVersion
+
+}
+{1.5cm}{
+kind
+
+}
+{1.5cm}{
+metadata
+
+}
+{1.5cm}{
+items
+
+}
+\stopapi
+
+\textit{Eg, for a ChronJob (other fields are obj-specific):}\\
+\code{apiVersion: batch/v1; kind: ChronJob} \\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Client libraries}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Networking}
+%\textit{Services expose pods behind two layers of indirection: 1) a Service url, which {\tt kube-dns} resolves to a singular service IP; 2) an EndPoints that maps the service IP to a list of randomly-chosen pod IPs. Ingresses (L7) and LoadBalancers (L4) can then expose services externally by redirecting requests made against a given public IP.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Custom Resource Definitions}
+

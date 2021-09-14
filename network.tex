@@ -1,0 +1,377 @@
+\section{Network}
+
+{\footnotesize \textit{Services expose pods behind 2 layers of indirect'n: 1) a Service url, which {\tt kube-dns} resolves to a singular svc IP; 2) an EndPoints rsc that maps the svc IP to a list of pod IPs. Ingresses (L7) and LoadBalancers (L4) can expose svcs externally by redirecting requests made against a given public IP.}}\\
+
+\textit{Often in the below, IPs \& ports contain:}\\
+\texttt{[IPAddress]}\quad\textit{(description of IP)}\\[-2mm]
+\api
+{1.4cm}{
+ip
+
+}
+{1.6cm}{
+hostname
+
+}
+{1.5cm}{
+nodeName
+
+}
+{1.5cm}{
+targetRef
+
+}
+\stopapi
+
+
+\texttt{[Ports]}\quad\textit{(list of ports)}\\[-2mm]
+\api
+{1.4cm}{
+port        
+
+}
+{1.5cm}{
+protocol
+
+}
+{1.4cm}{
+name
+
+}
+{1.7cm}{
+appProtocol
+
+}
+\stopapi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.io/docs/concepts/services-networking/service/}{Service}}
+
+\texttt{\href{https://kubernetes.io/docs/reference/kubernetes-api/service-resources/service-v1/}{spec}}\quad\textit{(attributes for creating)}\\[-2mm]
+\api
+{1.9cm}{
+selector        \\
+ipFamilies      \\
+externalIPs     \\
+ports           \\
+ipFam'yPolicy   \\
+extern.Traff.Pol.
+
+}
+{2.6cm}{
+loadBal.S'rcRanges\\
+pub.NotReadyAddr's\\
+h'lthCh'kNodeP'nt\\
+alloc.L.B.N'deP'rts\\
+internalTrafficPol.\\
+sess.Affin.Config
+
+}
+{1.5cm}{
+type            \\
+clusterIP[s]    \\
+loadBal.IP      \\
+exten.Name      \\
+sessionAffin.   \\
+loadBal.Class   
+
+}
+\stopapi
+
+
+\texttt{status}\quad\textit{(current service status)}\\[-2mm]
+\api
+{1.9cm}{
+conditions      
+
+}
+{1.9cm}{
+loadBalancer    
+
+}
+{2.2cm}{
+loadBal'r.ingress
+
+}
+\stopapi
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/}{Endpoint}}
+\textit{IPs $\to$  svcs; often generated indirectly by svcs.}\\
+\texttt{\href{https://kubernetes.io/docs/reference/kubernetes-api/service-resources/endpoints-v1/}{subsets}}\quad\textit{(set of IPs, ports in a service)}\\[-2mm]
+\api
+{1.5cm}{
+addresses       
+
+}
+{2.4cm}{
+notReadyAddresses  
+
+}
+{1.6cm}{
+ports   
+
+}
+\stopapi
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.io/docs/concepts/services-networking/ingress/}{Ingress}}
+
+
+\texttt{\href{https://kubernetes.io/docs/reference/kubernetes-api/service-resources/ingress-v1/}{spec}}\quad\textit{(desired ingress)}\\[-2mm]
+\api
+{2.0cm}{
+defaultBackend      
+
+}
+{2.4cm}{
+ingressClassName    
+
+}
+{0.8cm}{
+rules               
+
+}
+{0.8cm}{
+tls
+
+}
+\stopapi
+
+
+\texttt{spec.defaultBackend}\quad\textit{(how it is specified)}\\[-2mm]
+\api
+{2.0cm}{
+resource
+
+}
+{2.0cm}{
+service
+
+}
+\stopapi
+
+
+\texttt{spec.rules}\quad\textit{(traffic routing)}\\[-2mm]
+\api
+{2.0cm}{
+host
+
+}
+{2.0cm}{
+http
+
+}
+\stopapi
+
+
+\texttt{spec.tls}\quad\textit{(tls configuration)}\\[-2mm]
+\api
+{2.0cm}{
+hosts
+
+}
+{2.0cm}{
+secretName
+
+}
+\stopapi
+
+
+\texttt{status.loadBalancer.ingress}\quad\textit{(status)}\\[-2mm]
+\api
+{2.0cm}{
+hostname
+
+}
+{2.0cm}{
+ip
+
+}
+{2.0cm}{
+ports
+
+}
+\stopapi
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.io/docs/concepts/services-networking/ingress/\#ingress-class}{IngressClass}}
+
+
+\texttt{\href{https://kubernetes.io/docs/reference/kubernetes-api/service-resources/ingress-class-v1/}{spec}}\quad\textit{(ref $\to$ ingress controller)}\\[-2mm]
+\api
+{2.0cm}{
+controller
+
+}
+{2.4cm}{
+parameters
+
+}
+\stopapi
+
+
+\texttt{spec.parameters}\quad\textit{(addit'nal ctrllr config)}\\[-2mm]
+\api
+{2.0cm}{
+kind
+
+}
+{2.0cm}{
+name            \\
+scope
+
+}
+{2.0cm}{
+apiGroup        \\
+namespace
+
+}
+\stopapi
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.io/docs/concepts/services-networking/network-policies/}{NetworkPolicy}}
+
+\texttt{\href{https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/}{spec}}\quad\textit{(allowed traffic from/to pods: default open)}\\[-2mm]
+\api
+{1.6cm}{
+podSelector
+
+}
+{1.6cm}{
+policyTypes
+
+}
+{1.4cm}{
+ingress     
+
+}
+{1.4cm}{
+egress
+
+}
+\stopapi
+
+
+\texttt{spec.ingress}\quad\textit{(inbound rules whitelisting)}\\[-2mm]
+\api
+{2.0cm}{
+from
+}
+{2.0cm}{
+ports
+}
+{2.0cm}{
+
+}
+\stopapi
+
+
+\texttt{spec.egress}\quad\textit{(outbound rules whitelisting)}\\[-2mm]
+\api
+{2.0cm}{
+to
+}
+{2.0cm}{
+ports
+}
+{2.0cm}{
+
+}
+\stopapi
+
+\texttt{spec.[in|e]gress.[from|to]}\quad\textit{(rule src/dest)}\\[-2mm]
+\api
+{2.0cm}{
+ipBlock
+
+}
+{2.0cm}{
+n'mspceSelector      
+
+}
+{2.0cm}{
+podSelector
+
+}
+\stopapi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.github.io/ingress-nginx/}{Nginx Ingress Controller}}
+{\footnotesize \textit{$\nexists$ a default \href{https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/}{ingress controller}, so, \href{https://kubernetes.github.io/ingress-nginx/deploy/}{to install} nginx:}}\\
+% install:
+\code{kubectl apply -f \href{https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/cloud/}{URL}/deploy.yaml}
+
+\begin{comment}
+\textit{Confirm proper installation:}\\
+% detect installed version: 
+\code{POD\_NAME=\$(kubectl get pods /}\\
+\code{\phantom{xxxx}-l app.kubernetes.io/name=ingress-nginx }\\
+\code{\phantom{xxxx}-o jsonpath='\{.items[0].metadata.name\}')} \\
+\code{kubectl exec -it \$POD\_NAME -{}- /} \\
+\code{\phantom{xxxx}/nginx-ingress-controller --version} \\
+\end{comment}
+
+{\footnotesize \textit{Extensive nginx controller config fields \href{https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/}{here}.}\\[1mm]
+\textit{To expose a service, create a normal ingress resource (as above) with an \href{https://github.com/kubernetes/ingress-gce/blob/master/docs/faq/README.md\#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster}{ingress class} (shown \href{https://kubernetes.github.io/ingress-nginx/user-guide/basic-usage/}{here}) to specify which ingress ctllr to use. (Or just assume the default.) Customize the ingress' behavior with \href{https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/}{these} nginx-specific annotations.}}
+
+% When you create an ingress, you should annotate each ingress with the appropriate ingress.class to indicate which ingress controller should be used
+
+
+\begin{comment}
+
+\texttt{spec}\quad\textit{()}\\[-2mm]
+\api
+{2.0cm}{
+
+}
+{2.0cm}{
+
+}
+{2.0cm}{
+
+}
+\stopapi
+
+
+\texttt{status}\quad\textit{()}\\[-2mm]
+\api
+{2.0cm}{
+
+}
+{2.0cm}{
+
+}
+{2.0cm}{
+
+}
+\stopapi
+
+
+\texttt{list}\quad\textit{()}\\[-2mm]
+\api
+{1.5cm}{
+
+}
+{1.5cm}{
+
+}
+{1.5cm}{
+
+}
+{1.5cm}{
+
+}
+\stopapi
+
+\end{comment}

@@ -1,0 +1,235 @@
+\section{\href{https://kubernetes.io/docs/concepts/cluster-administration/}{Cluster}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/}{HorizontalPodAutoscaler}}
+
+
+\texttt{\href{https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v1/}{spec}}\quad\textit{(HPA spec)}\\[-2mm]
+\api
+{2.0cm}{
+maxReplicas \\
+targ.CPUUtil.\%
+}
+{2.0cm}{
+minReplicas
+
+}
+{2.0cm}{
+scaleTargetRef
+
+}
+\stopapi
+
+
+\texttt{status}\quad\textit{()}\\[-2mm]
+\api
+{2.0cm}{
+currentReplicas \\
+lastScaleTime
+
+}
+{2.0cm}{
+desiredReplicas \\
+obs'vdGeneration
+
+}
+{2.0cm}{
+curr.CPUUtil.\%
+}
+\stopapi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.io/docs/tasks/run-application/configure-pdb/}{PodDisruptionBudget}}
+
+
+\texttt{\href{https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/pod-disruption-budget-v1/}{spec}}\quad\textit{()}\\[-2mm]
+\api
+{2.0cm}{
+maxUnavail.
+
+}
+{2.0cm}{
+minAvail.
+
+}
+{2.0cm}{
+selector
+
+}
+\stopapi
+
+
+\texttt{status}\quad\textit{(PDB status)}\\[-2mm]
+\api
+{2.0cm}{
+currentHealthy  \\
+expectedPods    \\
+obs'vdGeneration
+
+}
+{2.0cm}{
+desiredHealthy  \\
+conditions      
+
+}
+{2.0cm}{
+disruptionsAll'd\\
+disruptedPods   
+}
+\stopapi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.io/docs/concepts/architecture/nodes/}{Node}}
+
+\texttt{\href{https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/node-v1/}{spec}}\quad\textit{()}\\[-2mm]
+\api
+{2.0cm}{
+configSource        \\
+providerID
+
+}
+{2.0cm}{
+externalID          \\
+taints
+
+}
+{2.0cm}{
+podCIDR[s]          \\
+unschedulable
+
+}
+\stopapi
+
+\texttt{taints}\quad\textit{(affecting all pods on node)}\\[-2mm]
+\api
+{1.4cm}{
+effect
+}
+{1.5cm}{
+key
+}
+{1.8cm}{
+timeAdded
+}
+{1.4cm}{
+value
+}
+\stopapi
+
+
+\texttt{status}\quad\textit{(current node status)}\\[-2mm]
+\api
+{2.0cm}{
+addresses       \\
+conditions      \\
+images          \\
+vol'sAttached
+
+}
+{2.0cm}{
+allocatable     \\
+config          \\
+nodeInfo        \\
+vol'sInUse
+
+}
+{2.0cm}{
+capacity        \\
+daemonEndP'ts   \\
+phase           
+
+
+}
+\stopapi
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.io/docs/concepts/overview/components/}{ComponentStatus}}
+
+
+\texttt{\href{https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/component-status-v1/}{conditions}}\quad\textit{(comp conditions observed)}\\[-2mm]
+\api
+{1.5cm}{
+status
+}
+{1.5cm}{
+type
+}
+{1.5cm}{
+error
+}
+{1.5cm}{
+message
+}
+\stopapi
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{\href{https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/}{Event}}
+
+\texttt{\href{https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/event-v1/}{[TopLevel]}}\quad\textit{(additional top-level fields)}\\[-2mm]
+\api
+{2.0cm}{
+eventTime       \\
+dep.FirstT'stmp \\
+dep.LastT'stmp  \\
+report'gC'trllr \\
+series
+
+}
+{2.0cm}{
+action          \\
+dep.Source      \\
+note            \\
+relate          \\
+type
+
+}
+{2.0cm}{
+deprecatedCount \\
+reason          \\
+regarding       \\
+rept'gInstance  \\
+
+}
+\stopapi
+
+
+
+\begin{comment}
+
+\texttt{\href{}{spec}}\quad\textit{()}\\[-2mm]
+\api
+{2.0cm}{
+
+}
+{2.0cm}{
+
+}
+{2.0cm}{
+
+}
+\stopapi
+
+
+\texttt{status}\quad\textit{()}\\[-2mm]
+\api
+{2.0cm}{
+
+}
+{2.0cm}{
+
+}
+{2.0cm}{
+
+}
+\stopapi
+
+
+
+\end{comment}
